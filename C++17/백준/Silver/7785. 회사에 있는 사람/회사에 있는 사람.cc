@@ -1,26 +1,29 @@
 #include <iostream>
 #include <map>
-#include <vector>
 using namespace std;
-int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr);
-	cout.tie(nullptr);
-	map<string, string, greater<string>> map;
-	int n;
-	string name, work;
-	cin >> n;
-	while (n--) {
-		cin >> name >> work;
-		if (map.find(name)!=map.end()) { //근무자 동명이인을 찾지못하면 end리턴.
-			map.erase(name);
-			map.insert(make_pair(name, work));
-		}
-		map.insert(make_pair(name,work));
-	}
-	for (auto iter = map.begin(); iter != map.end(); iter++) {
-		if (iter->second == "enter") {
-			cout << iter->first << " ";
-		}
-	}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int n;
+    string name, state;
+    cin>>n;
+    map<string,string, greater<string>> mymap;
+    while(n--)
+    {
+        cin>>name>>state;
+        auto it = (mymap.find(name));
+        if (it != mymap.end()) { //없으면 end 반환, 중복되는 것이 있다면
+            mymap.erase(name);  //map에서 삭제한 후
+        }
+        mymap.insert({name,state}); //다시 삽입
+    }
+    
+    for (auto& elem : mymap) {
+        if (elem.second == "enter") {
+            cout << elem.first << "\n";
+        }
+    }
+    return 0;
 }
