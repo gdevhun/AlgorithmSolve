@@ -2,48 +2,39 @@
 #include <stack>
 #include <string>
 using namespace std;
+int t;
+string input;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    string str;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	while (1) {
 
-    while (1) {
-        getline(cin, str);
-        if (str == ".") break;
+		bool flag = true;
+		stack<char>st;
+		getline(cin, input);
+		if (input == ".") break;
 
-        stack<char> stack;
-        bool flag = true;
+		for (int i = 0; i < input.size(); i++) {
+			if (input[i] == '(' || input[i] == '[') st.push(input[i]);
+			else if (input[i] == ')') {
+				if (st.size() && st.top() == '(') st.pop();
+				else {
+					flag = false; break;
+				}
+			}
+			else if (input[i] == ']') {
+				if (st.size() && st.top() == '[') st.pop();
+				else {
+					flag = false; break;
+				}
+			}
+		}
 
-        for (int i = 0; i < str.length(); i++) {
-            if (str[i] == '(' || str[i] == '[') {
-                stack.push(str[i]);
-            }
-            else if (str[i] == ')') {
-                if (!stack.empty() && stack.top() == '(') {
-                    stack.pop();
-                } else {
-                    flag = false;
-                    break;
-                }
-            }
-            else if (str[i] == ']') {
-                if (!stack.empty() && stack.top() == '[') {
-                    stack.pop();
-                } else {
-                    flag = false;
-                    break;
-                }
-            }
-        }
-
-        if (flag && stack.empty()) {
-            cout << "yes\n";
-        } else {
-            cout << "no\n";
-        }
-    }
-    
-    return 0;
+		if (st.empty() && flag) cout << "yes" << "\n";
+		else cout << "no" << "\n";
+	}
+	
+	return 0;
 }
