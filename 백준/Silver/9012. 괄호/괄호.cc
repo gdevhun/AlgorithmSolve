@@ -1,33 +1,34 @@
-#include<iostream>
-#include<string>
-#include<stack>
+#include <iostream>
+#include <stack>
 using namespace std;
+int t;
+string input;
 int main() {
 	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr), cout.tie(nullptr); //rapid IO
-	int T; //테스트 
-	string str;
-	cin >> T;
-	bool flag = false;
-	while (T--) {
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> t;
+	while (t--) {
+		cin >> input;
 		stack<char>st;
-		cin >> str;
-		for (int i = 0; i<str.length(); i++) {
-			if (str[i] == '(') st.push('(');
-			else if (str[i] == ')') {
-				if (st.empty()) {
-					flag = false; 
-					break;
+		bool flag = true;
+		for (int i = 0; i<input.size(); i++) {
+			if (input[i] == '(') {
+				st.push('(');
+			}
+			else { // input[i]== ')'
+				if (st.size() != 0 && st.top() == '(') {
+					st.pop();
 				}
-				else if ((st.top() == '(') && (!st.empty())) {
-					st.pop();  
-					flag = true;
+				else {
+					flag = false; break;
 				}
-				else { flag = false; break;  }
 			}
 		}
-		if (flag&&st.empty()) cout << "YES" << "\n";
+		if (flag && st.empty()) cout << "YES" << "\n";
 		else cout << "NO" << "\n";
 	}
+
 	return 0;
 }
