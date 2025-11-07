@@ -19,7 +19,7 @@ int bfs(int y, int x)
     {
         int cy = que.front().first;
         int cx = que.front().second;
-        que.pop();  // ← 이게 빠져있었습니다!
+        que.pop();  
         
         // 상어를 만나면 거리 반환
         if (map[cy][cx] == 1)
